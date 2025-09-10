@@ -7,6 +7,8 @@ from datetime import datetime
 import os
 import atexit
 import signal
+import socket
+
 
 # 设置端口
 PORT = 1111
@@ -93,7 +95,9 @@ class ChatRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(f'{{"error": "{str(e)}"}}'.encode())
         else:
-            super().do_POST()
+            self.send_response(404)
+            self.end_headers()
+
 
     def do_GET(self):
         if self.path == "/get_msgs":
@@ -125,8 +129,8 @@ if __name__ == "__main__":
 
     # 4. 启动服务器
     with socketserver.TCPServer(("", PORT), ChatRequestHandler) as httpd:
-        hostname = socketserver.socket.gethostname()
-        ip = socketserver.socket.gethostbyname(hostname)
+        hostname = socket.gethostname()
+        ip = socket.gethostbyname(hostname)
         print(f"聊天服务器启动在端口 {PORT}")
         print(f"访问地址: http://{ip}:{PORT}")
         print(f"消息接口: http://{ip}:{PORT}/get_msgs")
