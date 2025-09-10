@@ -1,4 +1,4 @@
-# 读取常用表格，门店督导对应表和常用常量
+# 读取常用表格，门店督导对应表
 
 import os
 import pandas as pd
@@ -20,7 +20,7 @@ def getBaseInfo():
                 "data/works_lpdr/.base_data/" + file
             )
     # 打印所有键
-    print("Base info files:", list(baseInfo.keys()))
+    print("键名:", list(baseInfo.keys()))
     return baseInfo
 
 
