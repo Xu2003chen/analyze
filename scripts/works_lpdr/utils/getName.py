@@ -10,8 +10,8 @@ project_root_dir = os.path.dirname(
 sys.path.append(project_root_dir)
 
 from src.constantClass.getBaseInfo import getBaseInfo
-from src.constantClass import productName
+from src.constantClass import getProductName
 
 shopinfo = getBaseInfo()["shopInfo"]
-sale_Product = productName.WEILONG
-big_Product = productName.BIG_PRODUCT
+sale_Product = getProductName.WEILONG
+big_Product = getProductName.BIG_PRODUCT
