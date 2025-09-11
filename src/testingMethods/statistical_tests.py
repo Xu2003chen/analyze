@@ -1,6 +1,6 @@
 """
 statistical_tests.py
-提供常用的统计检验函数，便于在分析和测试中调用。
+提供常用的统计检验方法
 """
 
 import numpy as np

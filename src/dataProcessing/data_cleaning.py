@@ -9,7 +9,7 @@ import numpy as np
 
 
 # 统计缺失值
-def count_na(df: pd.DataFrame) -> pd.DataFrame:
+def count_na(df: pd.DataFrame) -> pd.Series:
     """
     统计指定数据框中每列的缺失值数量
     :param df: 输入数据框
@@ -80,8 +80,7 @@ def clear_invalid_chars(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df.columns = cleaned_columns
 
-    # 2. 定义要保留的字符（白名单），匹配不在其中的字符进行清除
-    # 保留：字母、数字、下划线、汉字、空白、常见标点符号
+    # 2.保留正则表达式，只保留汉字、字母、数字、常见中英文标点和基本符号
     pattern = r'[^\w\u4e00-\u9fff\s\.,;!?，。；！？()（）【】\[\]\'"\-/]+'
 
     # 3. 找出所有字符串类型列
@@ -97,7 +96,7 @@ def clear_invalid_chars(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# 将能转变为数字的字符串转为数字，能转变为日期的字符串转为日期
+# 将能转变为数字的字符串转为数字
 def convert_types(df: pd.DataFrame) -> pd.DataFrame:
     """
     将能转变为数值的字符串转为数值

@@ -1,6 +1,5 @@
-# clustering_analysis.py
 """
-聚类分析模块：提供常用聚类方法，便于数据分析和建模调用。
+聚类模块：提供常用聚类方法
 支持 KMeans、层次聚类、DBSCAN、GMM 等算法。
 """
 
@@ -8,7 +7,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from typing import Dict, Any, Optional, Tuple
+from typing import Dict, Any, Optional, Tuple , Literal
 from sklearn.cluster import KMeans, AgglomerativeClustering, DBSCAN
 from sklearn.mixture import GaussianMixture
 from sklearn.decomposition import PCA
@@ -96,7 +95,7 @@ def kmeans_analysis(
 def hierarchical_clustering(
     df: pd.DataFrame,
     n_clusters: int = 3,
-    linkage: str = "ward",
+    linkage: Literal["ward", "complete", "average", "single"] = "ward",
     features: Optional[list] = None,
 ) -> Dict[str, Any]:
     """
@@ -183,7 +182,7 @@ def dbscan_analysis(
     coords = pca.fit_transform(scaled_data)
 
     plt.figure(figsize=(8, 6))
-    colors = plt.cm.Set1(np.linspace(0, 1, len(unique_labels)))
+    colors = plt.cm.get_cmap('Set1')(np.linspace(0, 1, len(unique_labels)))
     for k, col in zip(unique_labels, colors):
         if k == -1:
             col = [0, 0, 0, 1]  # 黑色表示噪声
