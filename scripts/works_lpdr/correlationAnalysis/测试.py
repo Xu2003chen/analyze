@@ -12,16 +12,15 @@ sys.path.append(project_root_dir)
 DATA_DIR = os.path.join(project_root_dir, "data", "works_lpdr", "correlationAnalysis")
 
 from src.dataProcessing import data_cleaning
-from src.testingMethods import statistical_methods
-from src.testingMethods import statistical_tests
-from src.testingMethods import clustering_methods
+from src.analyzeMethods import statistical_methods
+from src.analyzeMethods import statistical_tests
+from src.analyzeMethods import clustering_methods
 
 if __name__ == "__main__":
-    df = pd.read_excel(os.path.join(DATA_DIR, "data.xlsx")) 
+    df = pd.read_excel(os.path.join(DATA_DIR, "data.xlsx"))
     df = data_cleaning.clear_invalid_chars(df)
     df = data_cleaning.convert_types(df)
     statistical_methods.correlation_analysis(df, "门店编号")
     statistical_tests.normality_test(df["客单数"])
-    res=clustering_methods.kmeans_analysis(df,3,["客单数","客单价"])
+    res = clustering_methods.kmeans_analysis(df, 3, ["客单数", "客单价"])
     print(res)
-    
