@@ -13,8 +13,15 @@ DATA_DIR = os.path.join(project_root_dir, "data", "works_lpdr", "utils")
 
 
 df = pd.read_csv(os.path.join(DATA_DIR, "dc.csv"))
-df = df.groupby("调往门店名称")["商品名称"].nunique().reset_index()
+finaldf = (
+    df.groupby("调往门店名称")
+    .agg(
+        SKU数量=("商品名称", "nunique"),  # 不同商品种类数
+        配送金额总和=("配送金额", "sum"),  # 配送金额之和
+    )
+    .reset_index()
+)
 
 # 打印
-print(df)
-df.to_csv(os.path.join(DATA_DIR, "dc_active.csv"), index=False)
+print(finaldf)
+finaldf.to_csv(os.path.join(DATA_DIR, "dc_active.csv"), index=False)

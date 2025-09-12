@@ -9,21 +9,21 @@ sys.path.append(
 )
 from src.dataProcessing import data_cleaning
 
-#####################
+#####################读取.berforeMerged目录下所有.csv和.xlsx文件，清洗后合并到.AfterMerged目录下
 skiprows = 0
-#####################
+#####################把要合并的文件放在.beforeMerged目录下
 
 if __name__ == "__main__":
-    input_dir = "data/works_lpdr/.beforeMerged"
-    output_dir = "data/works_lpdr/.afterMerged"
-    merged_output = os.path.join(output_dir, "merged.csv")
+    INPUT_DIR = "data/works_lpdr/.beforeMerged"
+    OUTPUT_DIR = "data/works_lpdr/.afterMerged"
+    merged_output = os.path.join(OUTPUT_DIR, "merged.csv")
 
     # 获取输入目录下所有 .csv 和 .xlsx 文件
-    input_path = Path(input_dir)
+    input_path = Path(INPUT_DIR)
     all_files = list(input_path.glob("*.csv")) + list(input_path.glob("*.xlsx"))
 
     if not all_files:
-        print(f"No CSV or XLSX files found in {input_dir}")
+        print(f"无文件： {INPUT_DIR}")
         sys.exit(0)
 
     # 用于存储所有读取的 DataFrame
@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     for file_path in sorted(all_files):  # sorted 保证处理顺序可预测
         try:
-            print(f"Reading {file_path.name}")
+            print(f"正在读取 {file_path.name}")
             if file_path.suffix.lower() == ".csv":
                 df = pd.read_csv(file_path, skiprows=skiprows, dtype=str)
             elif file_path.suffix.lower() in [".xlsx", ".xls"]:
